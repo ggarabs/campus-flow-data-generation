@@ -11,8 +11,10 @@ class CampusModel(Model):
 
         nodes = list(graph.nodes)
 
+        entries = [id for id, data in graph.nodes(data=True) if data['type'] == 'entry/exit']
+
         for _ in range(agent_qtd):
-            origin = self.random.choice(nodes)
+            origin = self.random.choice(entries)
             destiny = self.random.choice(nodes)
 
             student = Student(self, destiny)
@@ -20,3 +22,4 @@ class CampusModel(Model):
 
     def step(self):
         self.agents.do("step")
+        self.anyone_moved = any(agent.moved for agent in self.agents)

@@ -854,7 +854,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="15.0" width="15.0" x="-32.06500156326115" y="153.41510338868397"/>
-          <y:Fill color="#993366" transparent="false"/>
+          <y:Fill color="#008080" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="87.32856750488281" x="-36.164283752441406" xml:space="preserve" y="-2.6720571517944336">CatracaItambe<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:Shape type="ellipse"/>

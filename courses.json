@@ -1,0 +1,228 @@
+{
+  "architecture": {
+    "name": "architecture",
+    "periods": {
+      "morning": 90,
+      "afternoon": 90,
+      "evening": 60
+    },
+    "class_buildings": {}
+  },
+  "cinema": {
+    "name": "cinema",
+    "periods": {
+      "morning": 25,
+      "afternoon": 0,
+      "evening": 0
+    }
+  },
+  "design": {
+    "name": "design",
+    "periods": {
+      "morning": 0,
+      "afternoon": 15,
+      "evening": 45
+    }
+  },
+  "law": {
+    "name": "law",
+    "periods": {
+      "morning": 300,
+      "afternoon": 0,
+      "evening": 240
+    }
+  },
+  "journalism": {
+    "name": "journalism",
+    "periods": {
+      "morning": 40,
+      "afternoon": 0,
+      "evening": 20
+    }
+  },
+  "letters": {
+    "name": "letters",
+    "periods": {
+      "morning": 30,
+      "afternoon": 0,
+      "evening": 0
+    }
+  },
+  "pedagogy": {
+    "name": "pedagogy",
+    "periods": {
+      "morning": 0,
+      "afternoon": 0,
+      "evening": 30
+    }
+  },
+  "marketing": {
+    "name": "marketing",
+    "periods": {
+      "morning": 160,
+      "afternoon": 0,
+      "evening": 120
+    }
+  },
+  "teology": {
+    "name": "teology",
+    "periods": {
+      "morning": 0,
+      "afternoon": 0,
+      "evening": 20
+    }
+  },
+  "administration": {
+    "name": "administration",
+    "periods": {
+      "morning": 220,
+      "afternoon": 0,
+      "evening": 150
+    }
+  },
+  "commerce": {
+    "name": "commerce",
+    "periods": {
+      "morning": 70,
+      "afternoon": 0,
+      "evening": 40
+    }
+  },
+  "computer science": {
+    "name": "computer science",
+    "periods": {
+      "morning": 80,
+      "afternoon": 0,
+      "evening": 70
+    },
+    "class_buildings": [25, 31, 33, 45]
+  },
+  "biology": {
+    "name": "biology",
+    "periods": {
+      "morning": 50,
+      "afternoon": 0,
+      "evening": 0
+    }
+  },
+  "countability": {
+    "name": "countability",
+    "periods": {
+      "morning": 15,
+      "afternoon": 0,
+      "evening": 40
+    }
+  },
+  "economy": {
+    "name": "economy",
+    "periods": {
+      "morning": 100,
+      "afternoon": 0,
+      "evening": 100
+    }
+  },
+  "civil engineering": {
+    "name": "civil engineering",
+    "periods": {
+      "morning": 80,
+      "afternoon": 0,
+      "evening": 30
+    }
+  },
+  "computer engineering": {
+    "name": "computer engineering",
+    "periods": {
+      "morning": 60,
+      "afternoon": 0,
+      "evening": 30
+    }
+  },
+  "manufacturing engineering": {
+    "name": "manufacturing engineering",
+    "periods": {
+      "morning": 60,
+      "afternoon": 0,
+      "evening": 40
+    }
+  },
+  "electrical engineering": {
+    "name": "electrical engineering",
+    "periods": {
+      "morning": 10,
+      "afternoon": 10,
+      "evening": 20
+    }
+  },
+  "mechanical engineering": {
+    "name": "mechanical engineering",
+    "periods": {
+      "morning": 20,
+      "afternoon": 20,
+      "evening": 20
+    }
+  },
+  "chemical engineering": {
+    "name": "chemical engineering",
+    "periods": {
+      "morning": 5,
+      "afternoon": 5,
+      "evening": 30
+    }
+  },
+  "pharmacy": {
+    "name": "pharmacy",
+    "periods": {
+      "morning": 25,
+      "afternoon": 25,
+      "evening": 0
+    }
+  },
+  "physiotherapy": {
+    "name": "physiotherapy",
+    "periods": {
+      "morning": 40,
+      "afternoon": 0,
+      "evening": 0
+    }
+  },
+  "nutrition": {
+    "name": "nutrition",
+    "periods": {
+      "morning": 50,
+      "afternoon": 0,
+      "evening": 0
+    }
+  },
+  "psychology": {
+    "name": "psychology",
+    "periods": {
+      "morning": 120,
+      "afternoon": 50,
+      "evening": 0
+    }
+  },
+  "chemistry": {
+    "name": "chemistry",
+    "periods": {
+      "morning": 0,
+      "afternoon": 0,
+      "evening": 30
+    }
+  },
+  "information systems": {
+    "name": "information systems",
+    "periods": {
+      "morning": 45,
+      "afternoon": 0,
+      "evening": 65
+    }
+  },
+  "gastronomy": {
+    "name": "gastronomy",
+    "periods": {
+      "morning": 0,
+      "afternoon": 0,
+      "evening": 25
+    }
+  }
+}

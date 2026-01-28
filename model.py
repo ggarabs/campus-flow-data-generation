@@ -1,6 +1,8 @@
 from mesa import Model
 from mesa.space import NetworkGrid
 from agent import Student
+from courses import weighted_random, load_courses
+from entries import weighted_random_entry, load_entries
 
 class CampusModel(Model):
     def __init__(self, graph, agent_qtd):
@@ -11,10 +13,12 @@ class CampusModel(Model):
 
         nodes = list(graph.nodes)
 
-        entries = [id for id, data in graph.nodes(data=True) if data['type'] == 'entry/exit']
+        entries = load_entries('entries.json')
+        courses = load_courses('courses.json')
 
         for _ in range(agent_qtd):
-            origin = self.random.choice(entries)
+            course = weighted_random(courses, 'morning')
+            origin = weighted_random_entry(entries)
             destiny = self.random.choice(nodes)
 
             student = Student(self, destiny)

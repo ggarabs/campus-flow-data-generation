@@ -6,7 +6,7 @@
       "afternoon": 90,
       "evening": 60
     },
-    "class_buildings": {}
+    "class_buildings": ["n8", "n187"]
   },
   "cinema": {
     "name": "cinema",
@@ -14,7 +14,8 @@
       "morning": 25,
       "afternoon": 0,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n26"]
   },
   "design": {
     "name": "design",
@@ -22,7 +23,8 @@
       "morning": 0,
       "afternoon": 15,
       "evening": 45
-    }
+    },
+    "class_buildings": ["n8", "n187"]
   },
   "law": {
     "name": "law",
@@ -30,7 +32,8 @@
       "morning": 300,
       "afternoon": 0,
       "evening": 240
-    }
+    },
+    "class_buildings": ["n2", "n45"]
   },
   "journalism": {
     "name": "journalism",
@@ -38,7 +41,8 @@
       "morning": 40,
       "afternoon": 0,
       "evening": 20
-    }
+    },
+    "class_buildings": ["n21", "n26"]
   },
   "letters": {
     "name": "letters",
@@ -46,7 +50,8 @@
       "morning": 30,
       "afternoon": 0,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n26"]
   },
   "pedagogy": {
     "name": "pedagogy",
@@ -54,7 +59,8 @@
       "morning": 0,
       "afternoon": 0,
       "evening": 30
-    }
+    },
+    "class_buildings": ["n13", "n30"]
   },
   "marketing": {
     "name": "marketing",
@@ -62,7 +68,8 @@
       "morning": 160,
       "afternoon": 0,
       "evening": 120
-    }
+    },
+    "class_buildings": ["n20", "n21", "n26"]
   },
   "teology": {
     "name": "teology",
@@ -70,7 +77,8 @@
       "morning": 0,
       "afternoon": 0,
       "evening": 20
-    }
+    },
+    "class_buildings": ["n13", "n30"]
   },
   "administration": {
     "name": "administration",
@@ -78,7 +86,8 @@
       "morning": 220,
       "afternoon": 0,
       "evening": 150
-    }
+    },
+    "class_buildings": ["n20"]
   },
   "commerce": {
     "name": "commerce",
@@ -86,7 +95,8 @@
       "morning": 70,
       "afternoon": 0,
       "evening": 40
-    }
+    },
+    "class_buildings": ["n20"]
   },
   "computer science": {
     "name": "computer science",
@@ -95,7 +105,7 @@
       "afternoon": 0,
       "evening": 70
     },
-    "class_buildings": [25, 31, 33, 45]
+    "class_buildings": ["n30", "n31", "n32", "n20", "n29"]
   },
   "biology": {
     "name": "biology",
@@ -103,7 +113,8 @@
       "morning": 50,
       "afternoon": 0,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n34", "n29"]
   },
   "countability": {
     "name": "countability",
@@ -111,7 +122,8 @@
       "morning": 15,
       "afternoon": 0,
       "evening": 40
-    }
+    },
+    "class_buildings": ["n20"]
   },
   "economy": {
     "name": "economy",
@@ -119,7 +131,8 @@
       "morning": 100,
       "afternoon": 0,
       "evening": 100
-    }
+    },
+    "class_buildings": ["n20"]
   },
   "civil engineering": {
     "name": "civil engineering",
@@ -127,7 +140,8 @@
       "morning": 80,
       "afternoon": 0,
       "evening": 30
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "computer engineering": {
     "name": "computer engineering",
@@ -135,7 +149,8 @@
       "morning": 60,
       "afternoon": 0,
       "evening": 30
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "manufacturing engineering": {
     "name": "manufacturing engineering",
@@ -143,7 +158,8 @@
       "morning": 60,
       "afternoon": 0,
       "evening": 40
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "electrical engineering": {
     "name": "electrical engineering",
@@ -151,7 +167,8 @@
       "morning": 10,
       "afternoon": 10,
       "evening": 20
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "mechanical engineering": {
     "name": "mechanical engineering",
@@ -159,7 +176,8 @@
       "morning": 20,
       "afternoon": 20,
       "evening": 20
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "chemical engineering": {
     "name": "chemical engineering",
@@ -167,7 +185,8 @@
       "morning": 5,
       "afternoon": 5,
       "evening": 30
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32"]
   },
   "pharmacy": {
     "name": "pharmacy",
@@ -175,7 +194,8 @@
       "morning": 25,
       "afternoon": 25,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n34", "n29"]
   },
   "physiotherapy": {
     "name": "physiotherapy",
@@ -183,7 +203,8 @@
       "morning": 40,
       "afternoon": 0,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n34", "n29"]
   },
   "nutrition": {
     "name": "nutrition",
@@ -191,7 +212,8 @@
       "morning": 50,
       "afternoon": 0,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n34", "n29"]
   },
   "psychology": {
     "name": "psychology",
@@ -199,7 +221,8 @@
       "morning": 120,
       "afternoon": 50,
       "evening": 0
-    }
+    },
+    "class_buildings": ["n21", "n34", "n29"]
   },
   "chemistry": {
     "name": "chemistry",
@@ -207,7 +230,8 @@
       "morning": 0,
       "afternoon": 0,
       "evening": 30
-    }
+    },
+    "class_buildings": ["n3", "n45", "n32", "n29"]
   },
   "information systems": {
     "name": "information systems",
@@ -215,7 +239,8 @@
       "morning": 45,
       "afternoon": 0,
       "evening": 65
-    }
+    },
+    "class_buildings": ["n30", "n31", "n32"]
   },
   "gastronomy": {
     "name": "gastronomy",
@@ -223,6 +248,7 @@
       "morning": 0,
       "afternoon": 0,
       "evening": 25
-    }
+    },
+    "class_buildings": ["n21", "n34"]
   }
 }

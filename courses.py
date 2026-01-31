@@ -15,7 +15,7 @@ def load_courses(path: str) -> Dict[str, Any]:
 
 def weighted_random(courses: Dict[str, Any], period: str) -> Dict[str, Any]:
     weights = [
-        course["periods"].get(period, 0)
+        course.get("periods").get(period)
         for course in courses.values()
     ]
 

@@ -11,15 +11,14 @@ class CampusModel(Model):
         self.graph = graph
         self.grid = NetworkGrid(graph)
 
-        nodes = list(graph.nodes)
-
         entries = load_entries('entries.json')
         courses = load_courses('courses.json')
 
         for _ in range(agent_qtd):
             course = weighted_random(courses, 'morning')
             origin = weighted_random_entry(entries)
-            destiny = self.random.choice(nodes)
+            destiny = self.random.choice(course["class_buildings"])
+            print(course, origin, destiny)
 
             student = Student(self, destiny)
             self.grid.place_agent(student, origin)

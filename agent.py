@@ -20,9 +20,8 @@ class Student(Agent):
         self.changed_route = False
 
     # PATHFINDING
-
     def edge_cost(self, u, v, data):
-        if self._is_forbidden_building(u):
+        if self._is_forbidden_places(v):
             return float("inf")
 
         if self._is_immediate_backtrack(u, v):
@@ -40,7 +39,6 @@ class Student(Agent):
         self.path_index = 0
 
     # STEP LOGIC
-
     def step(self):
         self.moved = False
 
@@ -60,7 +58,6 @@ class Student(Agent):
         return        
     
     # MOVEMENT
-            
     def _continue_movement(self):
         self.remaining_time -= 1
         if self.remaining_time == 0:
@@ -100,7 +97,6 @@ class Student(Agent):
             self.path_index += 1
 
     # DECISION HELPERS
-
     def _planned_next_node(self):
         return self.path[self.path_index + 1]
     
@@ -108,12 +104,21 @@ class Student(Agent):
         return self.random.random() < self.ERROR_PROB
     
     def _random_neighbor(self):
+        neighbors = self.model.graph.neighbors(self.pos)
+        valid_neighbors = [
+            n for n in neighbors
+            if self.model.graph.nodes[n]["type"] in ("temporary-point", "bathroom")
+        ]
+
+        if not valid_neighbors:
+            return None
+        
         return self.random.choice(
-                    list(self.model.graph.neighbors(self.pos))
-                )
+                    list(valid_neighbors)
+                ) or None
     
     def _is_valid_deviation(self, candidate, planned_next):
-        return candidate != planned_next and candidate != self.previous_node
+        return candidate is not None and candidate != planned_next and candidate != self.previous_node
 
     # CONDITIONS
     def _is_moving(self):
@@ -122,11 +127,11 @@ class Student(Agent):
     def _arrived(self):
         return self.pos == self.destiny
     
-    def _is_forbidden_building(self, node):
+    def _is_forbidden_places(self, node):
         return (
             self.in_transit
-            and self.model.graph.nodes[node]["type"] == "building"
             and node != self.destiny
+            and self.model.graph.nodes[node]["type"] not in ("temporary-point", "bathroom")
         )
     
     def _is_immediate_backtrack(self, u, v):

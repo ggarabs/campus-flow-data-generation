@@ -5,11 +5,13 @@ from courses import weighted_random, load_courses
 from entries import weighted_random_entry, load_entries
 
 class CampusModel(Model):
-    def __init__(self, graph, agent_qtd):
+    def __init__(self, graph, agent_qtd, restaurants, restrooms):
         super().__init__()
 
         self.graph = graph
         self.grid = NetworkGrid(graph)
+        self.restaurants = restaurants
+        self.restrooms = restrooms
 
         entries = load_entries('entries.json')
         courses = load_courses('courses.json')
@@ -17,10 +19,10 @@ class CampusModel(Model):
         for _ in range(agent_qtd):
             course = weighted_random(courses, 'morning')
             origin = weighted_random_entry(entries)
-            destiny = self.random.choice(course["class_buildings"])
-            print(course, origin, destiny)
+            class_buildings = course["class_buildings"]
 
-            student = Student(self, destiny)
+            student = Student(self, class_buildings, origin)
+            print(course, origin)
             self.grid.place_agent(student, origin)
 
     def step(self):

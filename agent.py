@@ -1,12 +1,27 @@
+from collections import deque
 from mesa import Agent
 import networkx as nx
 
 class Student(Agent):
     ERROR_PROB = 0.1
 
-    def __init__(self, model, destiny=None):
+    def __init__(self, model, class_buildings, origin):
         super().__init__(model)
-        self.destiny = destiny
+        self.class_buildings = class_buildings
+
+        self.routine = deque([
+            ("class", self.random.choice(self.class_buildings), 7200), 
+            ("interval", self.random.choice(self.model.restaurants), 900), 
+            ("class", self.random.choice(self.class_buildings), 7200),
+            ("exit", origin, 1000)])
+        
+        print(self.routine)
+        
+        self.destiny = None
+        self.completed = False
+
+        self.activity_time_left = 0
+        self.current_activity = None
 
         self.path = None
         self.path_index = 0
@@ -19,6 +34,8 @@ class Student(Agent):
         self.in_transit = True
         self.changed_route = False
 
+        self.start_next_activity()
+
     # PATHFINDING
     def edge_cost(self, u, v, data):
         if self._is_forbidden_places(v):
@@ -27,7 +44,11 @@ class Student(Agent):
         if self._is_immediate_backtrack(u, v):
             return float("inf")
         
-        return data["distance"]
+        distance = data["distance"]
+        width = data["width"]
+        alpha = 0.5
+        
+        return distance * (1 + alpha / width)
 
     def compute_path(self):
         self.path = nx.shortest_path(
@@ -42,6 +63,14 @@ class Student(Agent):
     def step(self):
         self.moved = False
 
+        if not self.in_transit and not self.completed:
+            self.activity_time_left -= 1
+
+            if self.activity_time_left <= 0:
+                self.start_next_activity()
+
+            return
+
         if self._is_moving():
             self._continue_movement()
             return
@@ -52,12 +81,25 @@ class Student(Agent):
         
         if self.path is None:
            self.compute_path()
-           print(self.path)
 
         self._decide_and_start_next_move()
         return        
     
     # MOVEMENT
+    def start_next_activity(self):
+        if not self.routine:
+            self.completed = True
+            return
+        
+        kind, destiny, duration = self.routine.popleft()
+
+        self.current_activity = kind
+        self.destiny = destiny
+        self.activity_time_left = duration
+
+        self.in_transit = True
+        self.path = None
+
     def _continue_movement(self):
         self.remaining_time -= 1
         if self.remaining_time == 0:
@@ -76,14 +118,14 @@ class Student(Agent):
     def _decide_and_start_next_move(self):
         planned_next = self._planned_next_node()
         next_node = planned_next
-        print(self.pos, planned_next)
 
         if self._should_deviate():
             candidate = self._random_neighbor()
             if self._is_valid_deviation(candidate, planned_next):
+                print('desviei')
+                print(next_node, candidate)
                 next_node = candidate
                 self.changed_route = True
-                print(self.pos, next_node)
 
         self._start_movement_to(next_node, planned_next)
 

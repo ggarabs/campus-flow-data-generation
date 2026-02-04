@@ -14,7 +14,7 @@ class Student(Agent):
             ("interval", self.random.choice(self.model.restaurants), 900), 
             ("class", self.random.choice(self.class_buildings), 7200),
             ("exit", origin, 1000)])
-        
+
         print(self.routine)
         
         self.destiny = None
@@ -46,9 +46,11 @@ class Student(Agent):
         
         distance = data["distance"]
         width = data["width"]
-        alpha = 0.5
+
+        alpha = 8.9
+        discomfort = alpha / width
         
-        return distance * (1 + alpha / width)
+        return distance + discomfort
 
     def compute_path(self):
         self.path = nx.shortest_path(
@@ -99,6 +101,7 @@ class Student(Agent):
 
         self.in_transit = True
         self.path = None
+        self.previous_node = None
 
     def _continue_movement(self):
         self.remaining_time -= 1
@@ -122,7 +125,6 @@ class Student(Agent):
         if self._should_deviate():
             candidate = self._random_neighbor()
             if self._is_valid_deviation(candidate, planned_next):
-                print('desviei')
                 print(next_node, candidate)
                 next_node = candidate
                 self.changed_route = True
@@ -134,6 +136,9 @@ class Student(Agent):
 
         self.target = next_node
         self.remaining_time = edge_length
+
+        if self.model.graph.nodes[self.pos]["type"] == 'bathroom':
+            self.remaining_time += 150
 
         if next_node == planned_next:
             self.path_index += 1
@@ -177,4 +182,6 @@ class Student(Agent):
         )
     
     def _is_immediate_backtrack(self, u, v):
-        return (self.previous_node is not None and u == self.pos and v == self.previous_node)
+        return (self.model.graph.nodes[u]["type"] not in ('building') 
+                and self.previous_node is not None 
+                and u == self.pos and v == self.previous_node)

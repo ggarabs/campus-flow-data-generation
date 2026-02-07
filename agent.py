@@ -3,7 +3,7 @@ from mesa import Agent
 import networkx as nx
 
 class Student(Agent):
-    ERROR_PROB = 0.1
+    ERROR_PROB = 0.01
 
     def __init__(self, model, class_buildings, origin):
         super().__init__(model)
@@ -15,6 +15,7 @@ class Student(Agent):
             ("class", self.random.choice(self.class_buildings), 7200),
             ("exit", origin, 1000)])
 
+#        self.routine = deque([('class', 'n45', 7200), ('interval', 'n300', 900), ('class', 'n2', 7200), ('exit', 'n71', 1000)])
         print(self.routine)
         
         self.destiny = None
@@ -33,6 +34,8 @@ class Student(Agent):
         self.moved = False
         self.in_transit = True
         self.changed_route = False
+
+        self.waiting = False
 
         self.start_next_activity()
 
@@ -109,7 +112,6 @@ class Student(Agent):
             self._arrive_at_target()
 
     def _arrive_at_target(self):
-        self.previous_node = self.pos
         self.model.grid.move_agent(self, self.target)
         self.target = None
         self.moved = True
@@ -129,11 +131,16 @@ class Student(Agent):
                 next_node = candidate
                 self.changed_route = True
 
-        self._start_movement_to(next_node, planned_next)
+        if self.model.request_edge_entry(self, self.pos, next_node):
+            self._start_movement_to(next_node, planned_next)
+        else:
+            self.moved = False
+            return 
 
     def _start_movement_to(self, next_node, planned_next):
         edge_length = int(self.model.graph.edges[self.pos, next_node]['distance'])
 
+        self.previous_node = self.pos
         self.target = next_node
         self.remaining_time = edge_length
 

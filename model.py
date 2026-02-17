@@ -27,26 +27,34 @@ class CampusModel(Model):
             self.grid.place_agent(student, origin)
 
     def step(self):
-        for _, _, data in self.graph.edges(data=True):
-            data["entered_this_tick"] = 0
+        for _, _, edge in self.graph.edges(data=True):
+            edge["entered_this_step"] = 0
 
         self.agents.do("step")
+        self.advance_queues()
         self.anyone_moved = any(agent.moved for agent in self.agents)
 
     def request_edge_entry(self, agent, u, v):
         edge = self.graph.edges[u, v]
 
-        if edge["entered_this_tick"] < edge["width"]:
-            edge["entered_this_tick"] += 1
+        if edge["entered_this_step"] < edge["width"]:
+            edge["in_transit"].add(agent)
+            edge["entered_this_step"] += 1
             return True
-        
+
+        if agent not in edge["queue"]:
+            edge["queue"].append(agent)
+
         return False
+
         
     def release_edge(self, agent, u, v):
         edge = self.graph.edges[u, v]
-        edge["in_transit"].remove(agent)
+        edge["in_transit"].discard(agent)
 
-        if edge["queue"]:
-            next_agent = edge["queue"].popleft()
-            edge["in_transit"].add(next_agent)
-            next_agent.start_edge(u, v)
+    def advance_queues(self):
+        for _, _, edge in self.graph.edges(data=True):
+            while edge["queue"] and edge["entered_this_step"] < edge["width"]:
+                next_agent = edge["queue"].popleft()
+                edge["in_transit"].add(next_agent)
+                edge["entered_this_step"] += 1

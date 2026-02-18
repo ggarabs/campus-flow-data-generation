@@ -42,6 +42,9 @@ class Student(Agent):
 
         self.error_prob = self.random.normalvariate(0.01, 0.005)
         self.error_prob = max(0, min(self.error_prob, 0.2))
+        #self.error_prob = 0
+
+        self.max_waiting_time = self.random.randint(5, 10)
 
         self.start_next_activity()
 
@@ -55,20 +58,24 @@ class Student(Agent):
         
         distance = data["distance"]
         width = data["width"]
-        queue = len(data["queue"]) + len(data["in_transit"])
+
+        occupancy = len(data["queue"]) + len(data["in_transit"])
 
         # TRAVERSAL TIME
         walk_speed = self.walk_speed
         travel_time = distance / walk_speed
 
         # WAITING TIME
-        expected_wait = queue / width if width > 0 else float("inf")
+        density = occupancy / width if width > 0 else float("inf")
 
         # DISCOMFORT
         alpha = 20
         discomfort = alpha / width
+
+        beta = 3
+        congestion_penalty = beta * (density ** 2)
         
-        return travel_time + expected_wait + discomfort
+        return travel_time + discomfort + density + (travel_time * congestion_penalty)
 
     def compute_path(self):
         self.path = nx.shortest_path(
@@ -101,16 +108,6 @@ class Student(Agent):
         
         if self.path is None:
            self.compute_path()
-
-        if self.target is not None and self.remaining_time == 0:
-            self.wait_time += 1
-        else:
-            self.wait_time = 0
-
-        if self.wait_time > 10:
-            self.path = None
-            self.changed_route = True
-            self.wait_time = 0
 
         self._decide_and_start_next_move()
         return        
@@ -146,9 +143,29 @@ class Student(Agent):
         self.target = None
         self.moved = True
 
-        if self.changed_route:
-            self.path = None
-            self.changed_route = False
+        if not self.completed and self.pos != self.destiny:
+            if self.changed_route:
+                #print("agente ", self, " mudou de rota")
+                self.compute_path()
+                self.changed_route = False
+
+
+    def _remaining_path_cost(self):
+        if self.path is None:
+            return float("inf")
+        
+        if self.path_index >= len(self.path) - 1:
+            return 0
+        
+        total_cost = 0
+
+        for i in range(self.path_index, len(self.path) - 1):
+            u = self.path[i]
+            v = self.path[i+1]
+            data = self.model.graph.edges[u, v]
+            total_cost += self.edge_cost(u, v, data)
+
+        return total_cost
 
     def _decide_and_start_next_move(self):
         planned_next = self._planned_next_node()
@@ -165,8 +182,15 @@ class Student(Agent):
 
         if self.model.request_edge_entry(self, self.pos, next_node):
             self._start_movement_to(next_node, planned_next)
+            self.wait_time = 0
         else:
+            self.wait_time += 1
             self.moved = False
+
+            if self.wait_time > self.max_waiting_time:
+                self.path = None
+                self.changed_route = True
+                self.wait_time = 0
 
     def _start_movement_to(self, next_node, planned_next):
         #print("estudante entrou no nó", next_node)

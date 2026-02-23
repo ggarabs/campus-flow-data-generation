@@ -15,7 +15,7 @@ class Student(Agent):
             ("class", self.random.choice(self.class_buildings), 7200),
             ("exit", origin, 1000)])
 
-#        self.routine = deque([('class', 'n31', 7200), ('interval', 'n300', 900), ('class', 'n20', 7200), ('exit', 'n71', 1000)])
+        self.routine = deque([('class', 'n31', 7200), ('interval', 'n300', 900), ('class', 'n20', 7200), ('exit', 'n71', 1000)])
         print(self.routine)
         
         self.destiny = None
@@ -221,7 +221,7 @@ class Student(Agent):
         neighbors = self.model.graph.neighbors(self.pos)
         valid_neighbors = [
             n for n in neighbors
-            if self.model.graph.nodes[n]["type"] in ("temporary-point", "bathroom")
+            if self.model.graph.nodes[n]["type"] == "temporary-point"
         ]
 
         if not valid_neighbors:
@@ -242,10 +242,15 @@ class Student(Agent):
         return self.pos == self.destiny and not self._is_moving()
     
     def _is_forbidden_places(self, node):
+        node_type = self.model.graph.nodes[node]["type"]
+
+        if node_type == "bathroom" and node != self.destiny:
+            return True
+
         return (
             self.in_transit
             and node != self.destiny
-            and self.model.graph.nodes[node]["type"] not in ("temporary-point", "bathroom")
+            and self.model.graph.nodes[node]["type"] not in ("temporary-point")
         )
     
     def _is_immediate_backtrack(self, u, v):

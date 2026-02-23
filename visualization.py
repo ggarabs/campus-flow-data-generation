@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
-interpolate_agents_position = True
+interpolate_agents_position = False
 
 def interpolate_position(agent, pos, model):
     if (agent.remaining_time <= 0 or agent.previous_node is None or agent.target is None):

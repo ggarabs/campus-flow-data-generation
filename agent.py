@@ -7,15 +7,26 @@ class Student(Agent):
 
     def __init__(self, model, class_buildings, origin):
         super().__init__(model)
+
         self.class_buildings = class_buildings
 
-        self.routine = deque([
-            ("class", self.random.choice(self.class_buildings), 7200), 
-            ("interval", self.random.choice(self.model.restaurants), 900), 
-            ("class", self.random.choice(self.class_buildings), 7200),
-            ("exit", origin, 1000)])
+        interval_activity_probability = self.random.random()
 
-        self.routine = deque([('class', 'n31', 7200), ('interval', 'n300', 900), ('class', 'n20', 7200), ('exit', 'n71', 1000)])
+        interval_activities = []
+
+        if interval_activity_probability < 0.70:
+            interval_activities = [('restaurant', self.random.choice(self.model.restaurants), 900)]
+        elif interval_activity_probability < 0.85:
+            interval_activities = [('bathroom', self.random.choice(self.model.restrooms), self.random.randint(100,180)), ('restaurant', self.random.choice(self.model.restaurants), 900)]
+        else:
+            interval_activities = [('leave', self.random.choice(self.model.entries), 900)]
+
+        routine = [("class", self.random.choice(self.class_buildings), 7200)]
+        routine.extend(interval_activities)
+        routine.extend([("class", self.random.choice(self.class_buildings), 7200),("exit", origin, 1000)])
+
+        self.routine = deque(routine)
+        self.routine = deque([('class', 'n45', 7200), ('leave', 'n213', 900), ('class', 'n45', 7200), ('exit', 'n54', 1000)])
         print(self.routine)
         
         self.destiny = None

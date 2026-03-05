@@ -16,10 +16,12 @@ class CampusModel(Model):
         entries = load_entries('entries.json')
         courses = load_courses('courses.json')
 
+        self.entries = [id for id in entries.keys()]
+
         for _ in range(agent_qtd):
             course = weighted_random(courses, 'morning')
             origin = weighted_random_entry(entries)
-            origin = 'n71'
+            #origin = 'n71'
             class_buildings = course["class_buildings"]
 
             student = Student(self, class_buildings, origin)
